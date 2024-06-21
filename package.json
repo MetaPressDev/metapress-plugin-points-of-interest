@@ -1,6 +1,6 @@
 {
     "name": "metapress-plugin-pointofinterest",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "MetaPress Point of Interest plugin.",
     "main": "js/loader.js",
     "private": true,
