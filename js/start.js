@@ -75,7 +75,7 @@ export default class PointOfInterestPlugin {
             sync: 'template',
             'modifier:pointofinterest': true,
             type: 'mesh',
-            url: require('./point-of-interest indicator.glb'),
+            url: require('./point-of-interest_indicator.glb'),
             hidden: false,
             physical: true,
             x: v3b.x,
@@ -151,7 +151,7 @@ export default class PointOfInterestPlugin {
      * @public
      */
     getPoints() {
-        let pointsOfInterest = metapress.entities.all.filter(e => e.name == 'Point of Interest')
+        let pointsOfInterest = metapress.entities.all.filter(e => e.name == 'Point of Interest' || e.point_of_interest_object)
 
         return pointsOfInterest
     }

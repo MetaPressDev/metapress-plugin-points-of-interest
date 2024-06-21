@@ -31,6 +31,7 @@
         metapress.entities.update(this.entity.id, {
             hidden: true,
             physical: false,
+            point_of_interest_object: true
         })
 
     }
