@@ -247,11 +247,27 @@ export default class PointOfInterestPlugin {
             tags: 'point of interest, place, activity, scripts, logic, travel, teleport, user movement',
             content: `
                 The point of interest can be used to travel to predefined points of interest or places in the wolrd. For example, take user to the closest point of action or take user to a random point of action with this name or category or show the user what activities or interesting things there are available in the space, etc.
-                To use it, add the "Point of Interest" object from the Editor and configure the point of interest details.
+                To use it, add the "Point of Interest" object from the Editor and configure the point of interest details. Current points of interest are ${this.getPoints().map(o => `name=${o.pointofinterest_name || 'unnamed'} description=${o.pointofinterest_description || 'none'}`).join(', ')} ${!this.canEdit ? 'speak about them in natural language.':''}
+                ${this.canEdit ? `You can also add more points of interest by clicking the "Add Point of Interest" button in the Editor. Add descriptions in a way that you think people would enjoy it.` : ''}
             `,
         },
 
         // Actions
+        {
+            id: `${this.id}:goToPoint`,
+            type: 'action',
+            name: 'Point of Interest - Go to point',
+            tags: 'go to point go to activity, go to place, move to point, move to activity, move to place',
+            content: `
+                Assistant instruction: Use this action to go to a point of interest that matches the name. The value is the name to go to.
+                The possible locations are: ${this.getPoints().map(e => e.pointofinterest_name).join(', ')}.
+            `,
+            action: input => {
+                if (!input.value) throw new Error("Cannot go to empty name.")
+                this.goToClosestPoint(null,input.value)
+                return 'Moved user to point of interest'
+            }
+        },
         {
             id: `${this.id}:goToRandomPoint`,
             type: 'action',
@@ -303,20 +319,6 @@ export default class PointOfInterestPlugin {
             action: input => {
                 if (!input.value) throw new Error("Cannot go to empty category.")
                 this.goToRandomPoint(input.value)
-                return 'Moved user to point of interest'
-            }
-        },
-        {
-            id: `${this.id}:goToPointByName`,
-            type: 'action',
-            name: 'Point of Interest - Go to point by name',
-            tags: 'go to point with name, go to activity with name, go to place with name, move to point with name, move to activity with name, move to place with name',
-            content: `
-                Assistant instruction: Use this action to go to a point of interest that matches the name. The value is the name to go to.
-            `,
-            action: input => {
-                if (!input.value) throw new Error("Cannot go to empty name.")
-                this.goToClosestPoint(null,input.value)
                 return 'Moved user to point of interest'
             }
         },

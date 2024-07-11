@@ -11,6 +11,7 @@
         let settings = [
             { type: 'description', name: `The details for the point of interest.` },
             { type: 'text', id: 'pointofinterest_name', name: 'Name', help: `The name and indentifier of the point of interest.` },
+            { type: 'text', id: 'pointofinterest_description', name: 'Description', help: `Talking points for the ai to speak about the place.` },
             { type: 'select', id: 'pointofinterest_category', name: 'Category', placeholder: 'General', values: ['general', 'content', 'media', 'activity'], labels: ['General', 'Content', 'Media', 'Activity'], help: 'The category the point of interest falls under.' },
             { type: 'file', id: 'pointofinterest_url', name: 'Icon', allowClear: true, help: `The image to render.`, onRemove: () => this.removeImage(true) },
 
